@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Navbar extends Component {
-  render() {
+const Navbar= (props)=>{
+  const {totalCounter} = props;
     return (
       <div>
       <nav className="navbar navbar-expand-lg navbar-dark primary-color">
       <div>
       <i className="fa fa-shopping-cart fa-lg m-2" aria-hidden="true"></i>
-      <span className="badge badge-default">
-      {this.props.totalCounter}{' '}
+      <span className="badge badge-default m-2">
+      {totalCounter}
       </span>
       Items
       </div>
@@ -16,7 +16,7 @@ export class Navbar extends Component {
     
       </div>
     );
-  }
+  
 }
 
 export default Navbar;
