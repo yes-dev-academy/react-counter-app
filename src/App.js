@@ -1,71 +1,73 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import Navbar from "./components/layout/Navbar";
 import Counters from "./components/Counters";
 
-export class App extends Component {
-  state = {
-    counters: [
+const App = () =>  {
+  const [counters,setCounters]=useState(
+    [
       { id: 1, value: 0 },
       { id: 2, value: 0 },
       { id: 3, value: 0 },
       { id: 4, value: 0 },
       { id: 5, value: 0 },
       { id: 6, value: 0 },
-    ],
+    ]
+  );
+
+  const handleIncrement = (counter) => {
+    const counts =[...counters];
+    const index = counts.indexOf(counter);
+    counts[index] = { ...counts[index] };
+    counts[index].value++;
+    setCounters(counts);
   };
 
-  handleIncrement = (counter) => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = { ...counters[index] };
-    counters[index].value++;
-    this.setState({ counters });
+  const handleDecrement = (counter) => {
+    const counts =  [...counters];
+    const index = counts.indexOf(counter);
+    counts[index] = { ...counts[index] };
+    counts[index].value--;
+    setCounters(counts);
   };
 
-  handleDecrement = (counter) => {
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);
-    counters[index] = { ...counters[index] };
-    counters[index].value--;
-    this.setState({ counters });
-  };
-
-  handleDelete = (counterId) => {
-    const counters = this.state.counters.filter(
+  const handleDelete = (counterId) => {
+    
+    const counts = counters.filter(
       (counter) => counter.id !== counterId
     );
-    this.setState({ counters });
+    setCounters(counts);
   };
-  handleReset = () => {
-    const counters = this.state.counters.map((counter) => {
+ const handleReset = () => {
+ 
+  const counts = counters.map((counter) => {
       counter.value = 0;
       return counter;
     });
-    this.setState({ counters });
+    setCounters(counts);
   };
 
-  handleRefresh = () => {
+  const handleRefresh = () => {
     window.location.reload();
   };
-  render() {
+  
     return (
       <div>
         <Navbar
           totalCounter={
-            this.state.counters.filter((counter) => counter.value > 0).length
+            counters.filter((counter) => counter.value > 0).length
           }
         />
         <Counters
-          counters={this.state.counters}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-          onDelete={this.handleDelete}
-          onRefresh={this.handleRefresh}
-          onReset={this.handleReset}
+          counters={counters}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          onDelete={handleDelete}
+          onRefresh={handleRefresh}
+          onReset={handleReset}
         />
       </div>
     );
-  }
+  
 }
 
 export default App;

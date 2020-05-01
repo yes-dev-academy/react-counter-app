@@ -12,7 +12,10 @@ const CounterItem =(props)=>{
     return classes 
   }
  
-    //const {counter,onDecrement,onDelete,onIncrement} = props
+  const add = counter => onIncrement(counter)
+  const minus = counter => onDecrement(counter)
+  const remove = id => onDelete(id)
+  
     return (
       <div className="row">
         <div className="col-1 m-3">
@@ -21,7 +24,7 @@ const CounterItem =(props)=>{
         <div className="col-1 m-3">
           <button
             className="btn btn-secondary btn-sm"
-            onClick={() =>onIncrement(counter)}
+            onClick={()=>add(counter)}
           >
             <i className="fa fa-plus-circle" aria-hidden="true"></i>
           </button>
@@ -29,7 +32,7 @@ const CounterItem =(props)=>{
         <div className="col-1 m-3">
           <button
             className="btn btn-info btn-sm"
-            onClick={() =>onDecrement(counter)}
+            onClick={() =>minus(counter)}
             disabled={counter.value === 0 ? "disabled" : ""}
           >
             <i className="fa fa-minus-circle" aria-hidden="true"></i>
@@ -38,7 +41,7 @@ const CounterItem =(props)=>{
         <div className="col-1 m-3">
           <button
             className="btn btn-danger btn-sm"
-            onClick={() =>onDelete(counter.id)}
+            onClick={() =>remove(counter.id)}
           >
             <i className="fa fa-trash-alt" aria-hidden="true"></i>
           </button>
